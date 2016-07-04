@@ -1,0 +1,13 @@
+## Git warning: you may want to set your diff.renamelimit variable
+
+解决方法：
+
+  git config merge.renameLimit 999999
+  
+如果想Reset:
+
+  git config --unset merge.renameLimit
+  
+参考：
+
+[Git warning: you may want to set your diff.renamelimit variable](http://www.sw33tcode.com/?p=31)
