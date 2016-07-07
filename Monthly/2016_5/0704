@@ -11,3 +11,32 @@
 参考：
 
 [Git warning: you may want to set your diff.renamelimit variable](http://www.sw33tcode.com/?p=31)
+
+
+## GLKView dealloc时Crash的问题
+
+问题描述：
+
+定义并实现了一个GLKView的子类，用于绘制相机输出的数据；但是某些手机上，释放该GLKView对象的时候会Crash.
+
+解决方法：
+
+    在析构的时候调用
+          
+          [EAGLContext setCurrentContext:nil];
+          
+原因：暂时并不清楚；只是google到该方案，而且要确保该方法在主线程中调用，似乎解决了问题。后续再对GLKView进行一下研究。
+
+解决方案来源：
+
+1. [EAGLContext crash using WhirlyGlobeViewController + MKMapView in iOS 6.1](https://github.com/mousebird/WhirlyGlobe/issues/112)  
+         
+         I finally solved it by calling [EAGLContext setCurrentContext:nil] just before pushing to the viewcontroller that contains the MKMapView.
+         
+2. [iOS6使用地图时Crash](http://blog.csdn.net/xiaoliuxingzi/article/details/38706561)        
+
+        iOS6时，使用地图MKMap，或者百度地图时，都会在退出时crash
+        
+3. [IOS 6 MKMapView crashes on [EAGLContext setCurrentContext]](http://stackoverflow.com/questions/12603161/ios-6-mkmapview-crashes-on-eaglcontext-setcurrentcontext)
+
+         it's partly due to Apple's map code keeping hold of our GL-Context. As a temporary workaround, you can create a subclass of a ShinobiChart and nil-out the GL context in the chart's dealloc method, like so:
