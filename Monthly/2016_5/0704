@@ -48,3 +48,33 @@
           [EAGLContext setCurrentContext:nil]
 
         after you have set your own EAGLContext. We fixed our bug by putting the above call into the dealloc method of our class that was interacting with EAGLContext.
+
+
+
+## Exception Subtype: WAKEUPS
+
+在iOS 8上遇到过这样的bug, 但是原因未知，也不好定位.
+
+    Exception Type: EXC_RESOURCE
+
+    Exception Subtype: WAKEUPS
+
+    Exception Message: (Limit 150/sec) Observed 206/sec over 300 secs
+
+一般发生在集成了Unity或者Cocos2d-x的iOS工程上
+
+相关的讨论:
+
+1. [IOS8异常之EXC_RESOURCE](http://www.jason-z.com/ios8-crash-exc_resource/)
+      
+      认为是CPU过载或者线程超出个数造成的
+      
+2. [App shutdown with EXC_RESOURCE, WAKEUPS exception on iOS 8 GM](http://stackoverflow.com/questions/25848441/app-shutdown-with-exc-resource-wakeups-exception-on-ios-8-gm)
+    认为是频繁的wakeup某个后台线程导致的.一般可能发生在算法相关模块
+    
+    Your app is sending a wakeup command to a particular thread in the app quite often - apparently an average of 206 times a second. Background threads in iOS 8 have a hard limit on how many times you can run a sleep/wake cycle on each thread per second, and having a high count here is usually an indication that something is wrong / inefficient in your thread management.
+    
+3. [google group上相关讨论](https://groups.google.com/forum/#!topic/discuss-webrtc/zCOqVXWw32g) : 没有结论
+4. [In IOS8 wakeups limit](http://discuss.cocos2d-x.org/t/in-ios8-wakeups-limit/18559) cocos2d的bug; 也没有结论，似乎LeanCloud上也有人提过类似问题
+    
+    
