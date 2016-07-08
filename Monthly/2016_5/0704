@@ -78,3 +78,9 @@
 4. [In IOS8 wakeups limit](http://discuss.cocos2d-x.org/t/in-ios8-wakeups-limit/18559) cocos2d的bug; 也没有结论，似乎LeanCloud上也有人提过类似问题
     
     
+## AVFoundation 错误码参考
+
+[AVError.strings](https://github.com/unke/ios-mng-translate/blob/master/System/Library/Frameworks/AVFoundation.framework/en_GB.lproj/AVError.strings)
+[AVError.strings 中文](https://github.com/gruhu13/Minimal-HD/blob/master/iPhone5_UI_Files/Frameworks/AVFoundation.framework/zh_CN.lproj/AVError.strings)
+
+但是其中有一些已经废弃了的，例如`AVFoundationErrorDomain_AVErrorDeviceIsNotAvailableInBackground_FailureReason`就已经在iOS 7中废弃了.
